@@ -1,0 +1,5 @@
+.git
+.github
+todo.md
+.gitignore
+__pycache__

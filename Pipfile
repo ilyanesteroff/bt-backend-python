@@ -7,6 +7,8 @@ name = "pypi"
 flask = "*"
 requests = "*"
 pyscrypt = "*"
+psutil = "*"
+pyjwt = "*"
 
 [dev-packages]
 

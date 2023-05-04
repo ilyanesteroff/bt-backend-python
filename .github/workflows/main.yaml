@@ -1,0 +1,19 @@
+name: Deployment
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Deployment
+        uses: google-github-actions/deploy-appengine@v0.2.0
+        with:
+          deliverables: --appyaml=gcp/app.yaml --ignore-file=gcp/.gcloudignore
+          credentials: ${{ secrets.CREDENTIALS }}
+          project_id: ${{ secrets.PROJECT_ID }}

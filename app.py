@@ -1,3 +1,4 @@
+import jwt
 import psutil 
 from math import ceil
 from requests import get
@@ -76,13 +77,33 @@ def stopMeasuring():
     return response
 
 
+@app.route('/jwt', methods=['POST'])
+def jwt_token(): 
+    username = urandom(8).hex().encode("utf-8").hex()
+    secret = urandom(24).hex().encode("utf-8").hex()
+    email = urandom(10).hex().encode("utf-8").hex()
+
+    payload = {
+        "username": username,
+        "email": email
+    }
+
+    token = jwt.encode(payload, secret, algorithm="HS256")
+    
+    decoded = jwt.decode(token, secret, algorithms=["HS256"])
+
+    response = make_response(jsonify(token=token, payload=decoded), 201)
+    
+    return response
+
+
 @app.route('/crypto', methods=['POST'])
 def crypto(): 
     password = urandom(8).hex().encode("utf-8")
-
+ 
     salt = 'salt'.encode("utf-8")
   
-    key = pbkdf2_hmac("sha256", password, salt, 10000, 24).hex()
+    key = pbkdf2_hmac("sha256", password, salt, 20000, 24).hex()
 
     hash = sha256(key.encode('utf-8')).hexdigest()
 
