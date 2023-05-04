@@ -1,5 +1,6 @@
 runtime: python39
 service: py
+entrypoint: python app.py
 env_variables:
   GCP_DEV: yes
 automatic_scaling:

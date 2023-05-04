@@ -1,3 +1,4 @@
+import os
 import jwt
 import psutil 
 from math import ceil
@@ -156,4 +157,4 @@ def networking():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=os.environ.get('PORT') or 5000)
